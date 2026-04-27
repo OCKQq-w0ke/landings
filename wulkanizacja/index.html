@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wulkanizacja Kowalski - Profesjonalne usługi oponiarskie Warszawa</title>
+    <link rel="preload" href="/photos/wulkanizacja-1.jpg" as="image">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Open+Sans:wght@400;600&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-dark: #0f0f0f;
+            --accent: #ff6b00;
+            --secondary: #1e1e1e;
+            --text-light: #ffffff;
+            --text-gray: #cccccc;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        
+        /* Animations */
+        .animate { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+        .animate.visible { opacity: 1; transform: translateY(0); }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(16px);
+            background: rgba(15, 15, 15, 0.9);
+            border-bottom: 1px solid var(--secondary);
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .nav-menu {
+            display: none;
+            list-style: none;
+            gap: 32px;
+        }
+        
+        .nav-menu a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .nav-cta {
+            background: var(--accent);
+            color: var(--text-light);
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+        
+        .hamburger span {
+            width: 24px;
+            height: 3px;
+            background: var(--text-light);
+            transition: all 0.3s;
+        }
+        
+        /* Hero */
+        .hero {
+            min-height: 100dvh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.35)), url('/photos/wulkanizacja-1.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: flex-end;
+            position: relative;
+        }
+        
+        .hero-content {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px 20px 0 0;
+            padding: 40px 24px;
+            margin: 0;
+        }
+        
+        .hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-light);
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+            color: var(--text-gray);
+        }
+        
+        .hero-ctas {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: var(--text-light);
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            padding: 16px 32px;
+            border: 2px solid var(--text-light);
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Fixed phone CTA */
+        .phone-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            background: var(--accent);
+            padding: 16px 24px;
+            text-align: center;
+        }
+        
+        .phone-cta a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        /* Services */
+        .services {
+            padding: 80px 0;
+            background: var(--bg-dark);
+        }
+        
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+            color: var(--accent);
+        }
+        
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+        
+        .service-card {
+            background: var(--secondary);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .service-card:nth-child(1) { border-color: #ff6b00; }
+        .service-card:nth-child(2) { border-color: #00ff6b; }
+        .service-card:nth-child(3) { border-color: #6b00ff; }
+        .service-card:nth-child(4) { border-color: #ff006b; }
+        .service-card:nth-child(5) { border-color: #6bff00; }
+        .service-card:nth-child(6) { border-color: #006bff; }
+        
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+        }
+        
+        .service-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            color: var(--accent);
+        }
+        
+        .service-card .price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-top: 16px;
+        }
+        
+        /* About */
+        .about {
+            padding: 80px 0;
+            background: var(--secondary);
+        }
+        
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        .about-problem {
+            background: var(--bg-dark);
+            padding: 40px 24px;
+            border-radius: 16px;
+        }
+        
+        .about-solution {
+            background: #f8f9fa;
+            color: #333;
+            padding: 40px 24px;
+            border-radius: 16px;
+        }
+        
+        .about-photo {
+            width: 100%;
+            height: 200px;
+            background: url('/photos/wulkanizacja-2.jpg') center/cover no-repeat;
+            border-radius: 16px;
+        }
+        
+        .counters {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .counter {
+            color: var(--accent);
+        }
+        
+        .counter-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+        }
+        
+        /* Gallery */
+        .gallery {
+            padding: 80px 0;
+            background: var(--bg-dark);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+        
+        .gallery-item {
+            height: 250px;
+            border-radius: 16px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .gallery-item:nth-child(1) { background-image: url('/photos/wulkanizacja-1.jpg'); }
+        .gallery-item:nth-child(2) { background-image: url('/photos/wulkanizacja-2.jpg'); }
+        .gallery-item:nth-child(3) { background-image: url('/photos/wulkanizacja-3.jpg'); }
+        
+        /* Reviews */
+        .reviews {
+            padding: 80px 0;
+            background: var(--secondary);
+        }
+        
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            margin-top: 48px;
+        }
+        
+        .review-card {
+            background: var(--bg-dark);
+            padding: 32px 24px;
+            border-radius: 16px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .review-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .review-name {
+            font-weight: 600;
+        }
+        
+        .stars {
+            color: #ffd700;
+            margin-left: auto;
+        }
+        
+        /* Contact */
+        .contact {
+            padding: 80px 0;
+            background: var(--bg-dark);
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+        
+        .contact-item {
+            background: var(--secondary);
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .contact-item h3 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--accent);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 768px) {
+            .container { padding: 0 40px; }
+            
+            .nav-menu { display: flex; }
+            .hamburger { display: none; }
+            
+            .hero h1 { font-size: 3.5rem; }
+            .hero p { font-size: 1.3rem; }
+            .hero-ctas { flex-direction: row; }
+            .phone-cta { display: none; }
+            
+            .bento-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .service-card:nth-child(1) { grid-column: span 2; }
+            .service-card:nth-child(4) { grid-column: span 2; }
+            
+            .about-content {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+                position: relative;
+            }
+            
+            .about-photo {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 300px;
+                height: 300px;
+                z-index: 2;
+                border: 4px solid var(--accent);
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 2fr 1fr 1fr;
+                grid-template-rows: 300px 200px;
+            }
+            
+            .gallery-item:nth-child(1) { grid-row: span 2; }
+            
+            .reviews-grid { grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); }
+            .contact-info { grid-template-columns: repeat(3, 1fr); }
+            .footer-content { flex-direction: row; justify-content: space-between; }
+        }
+        
+        @media (hover: hover) {
+            .nav-cta:hover { background: #e55a00; }
+            .btn-primary:hover { background: #e55a00; transform: translateY(-2px); }
+            .btn-secondary:hover { background: var(--text-light); color: var(--bg-dark); }
+            .service-card:hover { transform: translateY(-8px); }
+            .nav-menu a:hover { color: var(--accent); }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">Wulkanizacja Kowalski</div>
+            <ul class="nav-menu">
+                <li><a href="#uslugi">Usługi</a></li>
+                <li><a href="#o-nas">O nas</a></li>
+                <li><a href="#galeria">Galeria</a></li>
+                <li><a href="#opinie">Opinie</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+            <a href="tel:+48228154267" class="nav-cta">Zadzwoń</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Profesjonalna Wulkanizacja w Warszawie</h1>
+            <p>Kompleksowe usługi oponiarskie na ul. Grochowskiej 145. Szybko, solidnie, uczciwie.</p>
+            <div class="hero-ctas">
+                <a href="tel:+48228154267" class="btn-primary">Zadzwoń teraz</a>
+                <a href="#uslugi" class="btn-secondary">Zobacz usługi</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="phone-cta">
+        <a href="tel:+48228154267">📞 Zadzwoń: +48 22 815 42 67</a>
+    </div>
+
+    <section id="uslugi" class="services">
+        <div class="container">
+            <h2 class="section-title animate">Nasze Usługi</h2>
+            <div class="bento-grid">
+                <div class="service-card animate">
+                    <svg class="service-icon" viewBox="0 0 64 64" fill="none" stroke="#ff6b00" stroke-width="2">
+                        <circle cx="32" cy="32" r="28"/>
+                        <circle cx="32" cy="32" r="20"/>
+                        <path d="M12 32h8M44 32h8M32 12v8M32 44v8"/>
+                        <path d="M18.5 18.5l5.5 5.5M40 40l5.5 5.5M45.5 18.5l-5.5 5.5M24 40l-5.5 5.5"/>
+                    </svg>
+                    <h3>Wymiana Opon</h3>
+                    <p>Profesjonalna wymiana opon letnich na zimowe i odwrotnie. Szybka obsługa bez kolejek.</p>
+                    <div class="price">od 80 zł</div>
+                </div>
+                <div class="service-card animate">
+                    <svg class="service-icon" viewBox="0 0 64 64" fill="none" stroke="#ff6b00" stroke-width="2">
+                        <rect x="8" y="20" width="48" height="24" rx="4"/>
+                        <circle cx="20" cy="32" r="6"/>
+                        <circle cx="44" cy="32" r="6"/>
+                        <path d="M32 26v12"/>
+                    </svg>
+                    <h3>Wyważanie Kół</h3>
+                    <p>Precyzyjne wyważanie na nowoczesnych maszynach. Eliminujemy drgania kierownicy.</p>
+                    <div class="price">25 zł / koło</div>
+                </div>
+                <div class="service-card animate">
+                    <svg class="service-icon" viewBox="0 0 64 64" fill="none" stroke="#ff6b00" stroke-width="2">
+                        <path d="M8 32l8-8v6h12v4H16v6l-8-8z"/>
+                        <path d="M56 32l-8 8v-6H36v-4h12v-6l8 8z"/>
+                        <circle cx="32" cy="20" r="4"/>
+                        <circle cx="32" cy="44" r="4"/>
+                    </svg>
+                    <h3>Sezonowe Przechowywanie</h3>
+                    <p>Bezpieczne przechowywanie Twoich opon w odpowiednich warunkach przez cały sezon.</p>
+                    <div class="price">120 zł / sezon</div>
+                </div>
+                <div class="service-card animate">
+                    <svg class="service-icon" viewBox="0 0 64 64" fill="none" stroke="#ff6b00" stroke-width="2">
+                        <path d="M8 8l48 48M56 8L8 56"/>
+                        <rect x="20" y="20" width="24" height="24" rx="2"/>
+                        <circle cx="32" cy="32" r="4"/>
+                    </svg>
+                    <h3>Naprawa Opon</h3>
+                    <p>Wulkanizacja przebić, naprawa uszkodzeń bocznych. Profesjonalne metody naprawcze.</p>
+                    <div class="price">od 40 zł</div>
+                </div>
+                <div class="service-card animate">
+                    <svg class="service-icon" viewBox="0 0 64 64" fill="none" stroke="#ff6b00" stroke-width="2">
+                        <circle cx="32" cy="32" r="24"/>
+                        <circle cx="32" cy="32" r="16"/>
+                        <circle cx="32" cy="32" r="8"/>
+                        <path d="M16 16l8 8M48 16l-8 8M48 48l-8-8M16 48l8-8"/>
+                    </svg>
+                    <h3>Felgi Aluminiowe</h3>
+                    <p>Sprzedaż, regeneracja i naprawa felg aluminiowych. Szeroki wybór marek i rozmiarów.</p>
+                    <div class="price">od 200 zł</div>
+                </div>
+                <div class="service-card animate">
+                    <svg class="service-icon" viewBox="0 0 64 64" fill="none" stroke="#ff6b00" stroke-width="2">
+                        <circle cx="32" cy="32" r="20"/>
+                        <path d="M32 16v32"/>
+                        <path d="M16 32h32"/>
+                        <circle cx="32" cy="32" r="4"/>
+                        <path d="M24 24l16 16M40 24L24 40"/>
+                    </svg>
+                    <h3>Kontrola Ciśnienia</h3>
+                    <p>Bezpłatne sprawdzenie i regulacja ciśnienia w oponach. Doradztwo w zakresie opon.</p>
+                    <div class="price">Gratis</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="o-nas" class="about">
+        <div class="container">
+            <h2 class="section-title animate">O Naszej Firmie</h2>
+            <div class="about-content animate">
+                <div class="about-problem">
+                    <h3 style="color: #ff6b00; font-family: 'Oswald', sans-serif; font-size: 1.8rem; margin-bottom: 24px;">Problem</h3>
+                    <p>Właściciele samochodów w Warszawie często borykają się z problemami związanymi z oponami - przebicia, sezonowa wymiana, trudności ze znalezieniem rzetelnego serwisu. Duże sieci często oferują wysokie ceny i długie kolejki, a małe warsztaty nie zawsze gwarantują profesjonalną obsługę.</p>
+                </div>
+                <div class="about-solution">
+                    <h3 style="color: #333; font-family: 'Oswald', sans-serif; font-size: 1.8rem; margin-bottom: 24px;">Rozwiązanie</h3>
+                    <p>Wulkanizacja Kowalski to rodzinny biznes z wieloletnim doświadczeniem, oferujący profesjonalne usługi w uczciwyech cenach. Szybka obsługa, rzetelne doradztwo i indywidualne podejście do każdego klienta. Działamy na ul. Grochowskiej już od ponad 15 lat.</p>
+                </div>
+                <div class="about-photo"></div>
+            </div>
+            <div class="counters animate">
+                <div class="counter">
+                    <span class="counter-number" data-target="15">0</span>
+                    <span>Lat doświadczenia</span>
+                </div>
+                <div class="counter">
+                    <span class="counter-number" data-target="8500">0</span>
+                    <span>Zadowolonych klientów</span>
+                </div>
+                <div class="counter">
+                    <span class="counter-number" data-target="4.8">0</span>
+                    <span>Ocena Google</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria" class="gallery">
+        <div class="container">
+            <h2 class="section-title animate">Galeria</h2>
+            <div class="gallery-grid animate">
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="opinie" class="reviews">
+        <div class="container">
+            <h2 class="section-title animate">Opinie Klientów</h2>
+            <div class="reviews-grid">
+                <div class="review-card animate">
+                    <div class="review-header">
+                        <div class="review-avatar">MN</div>
+                        <div>
+                            <div class="review-name">Marcin Nowak</div>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <p>Świetna obsługa! Pan Kowalski wymienił mi opony zimowe na letnie w 20 minut. Ceny uczciwe - za komplet 205/55R16 zapłaciłem 1200zł. Dodatkowo sprawdził ciśnienie i wyważył koła bez dopłaty. Polecam szczególnie w sezonie, bo nie ma kolejek jak w dużych sieciach.</p>
+                </div>
+                <div class="review-card animate">
+                    <div class="review-header">
+                        <div class="review-avatar">AW</div>
+                        <div>
+                            <div class="review-name">Anna Wiśniewska</div>
+                            <div class="stars">★★★★☆</div>
+                        </div>
+                    </div>
+                    <p>Przyjechałam z przebitą oponą w Fordzie Focusie. Pan Kowalski szybko znalazł dziurę od gwoździa i zrobił profesjonalną wulkanizację za 40zł. Opona trzyma już 3 miesiące bez problemu. Jedyny minus - trzeba było czekać godzinę, bo akurat miał dużo pracy.</p>
+                </div>
+                <div class="review-card animate">
+                    <div class="review-header">
+                        <div class="review-avatar">TK</div>
+                        <div>
+                            <div class="review-name">Tomasz Kaczmarek</div>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <p>Najlepsza wulkanizacja w tej części Warszawy! Regularnie tu przychodzę od 5 lat. Ostatnio wymieniał mi oponę 225/45R17 - doradził dobrą markę w rozsądnej cenie. Zawsze uczciwie powie czy opłaca się naprawiać czy lepiej kupić nową. Bardzo rzetelny fachowiec!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontakt" class="contact">
+        <div class="container">
+            <h2 class="section-title animate">Kontakt</h2>
+            <div class="contact-info animate">
+                <div class="contact-item">
+                    <h3>Adres</h3>
+                    <p>ul. Grochowska 145<br>04-077 Warszawa</p>
+                </div>
+                <div class="contact-item">
+                    <h3>Telefon</h3>
+                    <p><a href="tel:+48228154267" style="color: #ff6b00; text-decoration: none;">+48 22 815 42 67</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>Godziny otwarcia</h3>
+                    <p>Pn-Pt: 8:00-18:00<br>Sb: 9:00-14:00<br>Nd: zamknięte</p>
+                </div>
+            </div>
+            <div class="animate" style="text-align: center; margin-top: 40px;">
+                <a href="tel:+48228154267" class="btn-primary" style="display: inline-flex; font-size: 1.3rem; padding: 20px 40px;">Zadzwoń teraz - +48 22 815 42 67</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">Wulkanizacja Kowalski</div>
+                <div class="social-icons">
+                    <div class="social-icon">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                    </div>
+                    <div class="social-icon">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.566-1.35 2.14-2.21z"/>
+                        </svg>
+                    </div>
+                    <div class="social-icon">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div>&copy; 2025 Wulkanizacja Kowalski. Wszystkie prawa zastrzeżone.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        });
+
+        document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+        // Counter animation
+        const counters = document.querySelectorAll('.counter-number');
+        const animateCounter = (counter) => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            const duration = 2000;
+            const start = Date.now();
+            const step = () => {
+                const progress = Math.min((Date.now() - start) / duration, 1);
+                const current = Math.floor(progress * target);
+                counter.textContent = current;
+                if (progress < 1) requestAnimationFrame(step);
+            };
+            step();
+        };
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target.querySelector('.counter-number');
+                    animateCounter(counter);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>
