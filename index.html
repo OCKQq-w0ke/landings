@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Landings</title>
+  <meta name="robots" content="noindex">
+  <style>
+    :root {
+      --bg: #0b0b0c;
+      --fg: #f4f4f5;
+      --muted: #a1a1aa;
+      --card: #18181b;
+      --card-hover: #27272a;
+      --border: #27272a;
+      --accent: #f97316;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #fafafa;
+        --fg: #18181b;
+        --muted: #71717a;
+        --card: #ffffff;
+        --card-hover: #f4f4f5;
+        --border: #e4e4e7;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 20px 80px;
+      line-height: 1.5;
+    }
+    h1 { font-size: 28px; margin: 0 0 8px; letter-spacing: -0.02em; }
+    .sub { color: var(--muted); margin: 0 0 32px; font-size: 14px; }
+    .grid { display: grid; gap: 10px; }
+    .card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 18px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--fg);
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+    .card:hover { background: var(--card-hover); transform: translateY(-1px); }
+    .card .name { font-weight: 600; font-size: 15px; }
+    .card .meta { color: var(--muted); font-size: 13px; }
+    .arrow { color: var(--muted); font-size: 16px; }
+    footer {
+      margin-top: 48px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    code {
+      font-family: "SF Mono", Menlo, Consolas, monospace;
+      background: var(--card);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Landings</h1>
+  <p class="sub">Список усіх лендінгів. Натисни, щоб відкрити.</p>
+
+  <div class="grid">
+    <a class="card" href="site6/">
+      <div>
+        <div class="name">site6</div>
+        <div class="meta">Wulkanizacja Kowalski – Warszawa</div>
+      </div>
+      <span class="arrow">&rarr;</span>
+    </a>
+
+    <!-- LANDINGS:START - не видаляй цей маркер, сюди додаються нові лендінги -->
+    <!-- LANDINGS:END -->
+  </div>
+
+  <footer>
+    Щоб додати новий лендінг — поклади папку з <code>index.html</code> в корінь репо й закоміть. Потім онови цей файл.
+  </footer>
+</body>
+</html>

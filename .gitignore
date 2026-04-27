@@ -1,0 +1,18 @@
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor junk
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs
+*.log
+
+# Node (якщо колись додаси збірку)
+node_modules/
+dist/
+.cache/
